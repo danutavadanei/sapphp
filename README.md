@@ -8,13 +8,13 @@
 
 ## Summary
 
-Welcome to SapPhp package. This packages is not a connector, it uses [php-sapnwrfc](https://github.com/piersharding/php-sapnwrfc) extension to handle client - server communication. This package is intended to provide a clean object oriented interface to handle extensive data extraction using RFC calls using PHP. My plan is to extend this class with PHP Interfaces to SAP FMs (check [RfcReadTable](src/SapPhp/Functions/RfcReadTable.php) interface) 
+Welcome to SapPhp package. This packages is not a connector, it uses [php-sapnwrfc](https://github.com/piersharding/php-sapnwrfc) extension to handle client - server communication. This package is intended to provide a clean object oriented interface to handle extensive data extraction using RFC calls. My development plan is to extend this class with PHP Interfaces to SAP FMs (check [RfcReadTable](src/SapPhp/Functions/RfcReadTable.php) interface) 
 
 This is an early version and I expect you to raise issues and bugs and maybe give me some suggestions.
 
 ## Install
 
-Make sure you have the [php-sapnwrfc](https://github.com/piersharding/php-sapnwrfc) extension installed and run:
+Make sure you have the [php-sapnwrfc](https://github.com/piersharding/php-sapnwrfc) extension installed.
 ```
 composer require avdaneidanut/sapphp
 ```
@@ -60,7 +60,7 @@ Let's get details about an user:
 
 // ... connection
 
-// Instanciate new Function Module interface.
+// Instantiate new Function Module interface.
 $function = $connection->fm(
 	'BAPI_USER_GET_DETAIL', // RFC Enable FM
 	true // Parse result (trim all strings and decode GUIDs)
@@ -77,7 +77,7 @@ $function->param('USERNAME', 'USER');
 $result = $function->invoke();
 ```
 
-How about getting details about an user using `RFC_READ_TABLE` function? Let's go:
+How about getting details about an user using `RFC_READ_TABLE` FM? Let's go:
 
 ```php
 <?php
@@ -97,7 +97,8 @@ $function->param('QUERY_TABLE', 'USR01')
 $result = $function->invoke();
 ```
 
-Very nice, we can query a table using a SQL statement :O. But with the result, we need to parse it, ugh..
+Very nice, we can query a table using a SQL statement. The result from this FM is pretty dirty, fix it with explodes and array_merge, right?
+
 ```
 [
   "DATA" => [
@@ -253,21 +254,21 @@ But wait, how about using a FunctionModule interface that has a query builder an
 
 // ... connection
 
-// fm method will check if RfcReadTable is an FunctionModule Interface Class, if so will return a new instance.
+// fm method will check if RfcReadTable is an FunctionModule interface Class, if so will return a new instance.
 $function = $connection->fm('RfcReadTable'); 
 
-// Lets do the same thing as before.
+// Let's do the same thing as before.
 $result = $function->table('usr01') // set the query table
 	->where('bname', ['USER', 'USER5']) // add multiple where clause (simulating where in )
 	->orWhere('bname', 'LIKE', 'USER5*') // add custom comparation operator
-	->limit(5) // limit the result to 5
-	->get() // perform function call, parse the result and return a Illuminate\Support\Collection object.
+	->limit(5) // limit the result to 5 rows
+	->get() // perform function call, parse the result and return a \Illuminate\Support\Collection object.
 ;
 
 print_r($result->toArray());
 ```
 
-And the result
+And the result:
 
 ```
 [
@@ -334,7 +335,7 @@ And the result
 ]
 ```
 
-Take a look at [RfcReadTable](src/SapPhp/Functions/Table/RfcReadTable.php) and [QueryBuilder](src/SapPhp/Functions/Table/QueryBuilder.php) available methods.
+Take a look at [RfcReadTable](src/SapPhp/Functions/Table/RfcReadTable.php) and [QueryBuilder](src/SapPhp/Functions/Table/QueryBuilder.php) methods.
 
 
 ### QueryBuilder usage.
@@ -344,7 +345,7 @@ Take a look at [RfcReadTable](src/SapPhp/Functions/Table/RfcReadTable.php) and [
 $query->where('column', 'value') // Add WHERE clause
 	->andWhere('column2,' 'value2') // AND logical operarator
 	->orWhere('column3', '<>', 'value3') // OR logical operator
-	->orWhere(function ($query) { // WJERE group
+	->orWhere(function ($query) { // WHERE group
 		$query->where('column11', 'value11')
 			->andWhere('column22', 'value22');
 	})

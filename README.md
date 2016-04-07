@@ -1,6 +1,11 @@
 # SapPhp package
 > SAP Remote Function Modules Calls made easy using sapnwrfc and PHP.
 
+[![Latest Stable Version](https://poser.pugx.org/avadaneidanut/sapphp/v/stable)](https://packagist.org/packages/avadaneidanut/sapphp)
+[![Total Downloads](https://poser.pugx.org/avadaneidanut/sapphp/downloads)](https://packagist.org/packages/avadaneidanut/sapphp)
+[![Latest Unstable Version](https://poser.pugx.org/avadaneidanut/sapphp/v/unstable)](https://packagist.org/packages/avadaneidanut/sapphp)
+[![License](https://poser.pugx.org/avadaneidanut/sapphp/license)](https://packagist.org/packages/avadaneidanut/sapphp)
+
 ## Summary
 
 Welcome to SapPhp package. This packages is not a connector, it uses [php-sapnwrfc](https://github.com/piersharding/php-sapnwrfc) extension to handle client - server communication. This package is intended to provide a clean object oriented interface to handle extensive data extraction using RFC calls using PHP. My plan is to extend this class with PHP Interfaces to SAP FMs (check [RfcReadTable](src/SapPhp/Functions/RfcReadTable.php) interface) 

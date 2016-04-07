@@ -1,0 +1,26 @@
+{
+    "name": "avadaneidanut/sapphp",
+    "description": "SAP Remote Function Modules Calls made easy using sapnwrfc.",
+    "authors": [
+        {
+            "name": "Avadanei Danut",
+            "email": "danut@worldit.info"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.5.9",
+       	"ext-sapnwrfc": "*",
+       	"illuminate/support": "5.2.*",
+       	"psy/psysh": "^0.7.2",
+        "sabre/xml": "^1.4"
+    },
+    "autoload": {
+        "files": [
+            "src/SapPhp/Support/helpers.php"
+        ],
+        "psr-4": {
+            "SapPhp\\": "src/SapPhp/"
+        }
+    }
+}

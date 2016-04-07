@@ -8,7 +8,7 @@
 
 ## Summary
 
-Welcome to SapPhp package. This packages is not a connector, it uses [php-sapnwrfc](https://github.com/piersharding/php-sapnwrfc) extension to handle client - server communication. This package is intended to provide a clean object oriented interface to handle extensive data extraction using RFC calls using PHP. My plan is to extend this class with PHP Interfaces to SAP FMs (check [RfcReadTable](src/SapPhp/Functions/RfcReadTable.php) interface) 
+Welcome to SapPhp package. This packages is not a connector, it uses [php-sapnwrfc](https://github.com/piersharding/php-sapnwrfc) extension to handle client - server communication. This package is intended to provide a clean object oriented interface to handle extensive data extraction using RFC calls using PHP. My plan is to extend this class with PHP Interfaces to SAP FMs (check [RfcReadTable](src/SapPhp/Functions/Table/RfcReadTable.php) interface) 
 
 This is an early version and I expect you to raise issues and bugs and maybe give me some suggestions.
 

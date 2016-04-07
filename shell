@@ -6,26 +6,4 @@
 
 require_once 'vendor/autoload.php';
 
-use SapPhp\Connection;
-use SapPhp\Exceptions\BoxNotFoundException;
-
-try {
-	$connection = new Connection(
-		'gep', // SAP Box Name
-		'CV2889', // SAP Username
-		'QW1234er', // SAP Password
-		'500' // SAP Client Code
-	);
-} catch(sapnwrfcConnectionException $ex) {
-	// Do something if login failed.
-} catch(BoxNotFoundException $ex) {
-	// Do something if box doesn't exist.
-}
-
-$function = $connection->fm('RFC_READ_TABLE');
-
-$function->param('QUERY_TABLE', 'USR03')
-	->param('ROWCOUNT', 100)
-;
-
 eval(\Psy\sh());

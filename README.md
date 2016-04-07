@@ -97,7 +97,7 @@ $function->param('QUERY_TABLE', 'USR01')
 $result = $function->invoke();
 ```
 
-Very nice, we can query a table using a SQL statement. The result from this FM is pretty dirty, fix it with explodes and array_merge, right?
+Very nice, we can query a table using a SQL statement. The result from this FM is dirty, fix it with explodes and array_merge, right?
 
 ```
 [
@@ -380,8 +380,7 @@ The previous code will generate the folowing SQL query:
 ```
 
 ## To-do
-1. Aggregate multiple table results in one Collection and share the same query over multiple tables.
-
+* Aggregate multiple table results in one Collection and share the same query over multiple tables.
 ```php
 <?php
 
@@ -396,8 +395,7 @@ $rfcReadTable->table(['table1', 'table2', 'table3'], function($agregatter) {
 		->on('column2');
 })->where('column', 'value');
 ```
-
-2. Add mode FunctionModule interfaces as RfcReadTable - Please send suggestions!
+* Add mode FunctionModule interfaces as RfcReadTable - Please send suggestions!
 
 ## Support
 

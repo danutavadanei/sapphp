@@ -6,6 +6,10 @@
 [![Latest Unstable Version](https://poser.pugx.org/avadaneidanut/sapphp/v/unstable)](https://packagist.org/packages/avadaneidanut/sapphp)
 [![License](https://poser.pugx.org/avadaneidanut/sapphp/license)](https://packagist.org/packages/avadaneidanut/sapphp)
 
+## Legal notice
+
+SAP and other SAP products and services mentioned herein are trademarks or registered trademarks of SAP SE (or an SAP affiliate company) in Germany and other countries.
+
 ## Summary
 
 Welcome to SapPhp package. This packages is not a connector, it uses [php-sapnwrfc](https://github.com/piersharding/php-sapnwrfc) extension to handle client - server communication. This package is intended to provide a clean object oriented interface to handle extensive data extraction using RFC calls. My development plan is to extend this class with PHP Interfaces to SAP FMs (check [RfcReadTable](src/SapPhp/Functions/RfcReadTable.php) interface) 

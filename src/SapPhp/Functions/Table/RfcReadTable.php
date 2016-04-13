@@ -73,7 +73,7 @@ class RfcReadTable extends FunctionModule
 
 	/**
 	 * Set fields for retrieval and execute function. Keep in mind this value is limited to
-	 * 1024 bytes per row.
+	 * 512 bytes per row.
 	 * 
 	 * @param  array  $fields
 	 * 

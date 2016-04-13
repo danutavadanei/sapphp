@@ -1,11 +1,3 @@
-
-
-
-
-
-
-
-
 <?php
 
 namespace SapPhp\Functions\Table;

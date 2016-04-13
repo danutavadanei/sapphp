@@ -27,7 +27,7 @@ class QueryBuilder
 	 *
 	 * @return void
 	 */
-	public function __construct(RfcReadTable $parent)
+	public function __construct(RfcReadTable $parent = null)
 	{
 		$this->parent = $parent;
 	}
@@ -92,19 +92,20 @@ class QueryBuilder
 			return $this;
 		}
 
-		// If value is an array, simulate where in sql clause.
-		if (is_array($value)) {
-			return $this->{$boolean . 'Where'}(function($query) use ($column, $value){
-				foreach ($value as $entry) {
-					$query->orWhere($column, $entry);
-				}
-			});
-		}
-
 		// If value is null, we assume that value is in the operator argument
 		// and we want the default opertor (=).
 		if (is_null($value)) {
-			return $this->where($column, '=', $operator, $boolean);
+			$value = $operator;
+			$operator = '=';
+		}
+
+		// If value is an array, simulate where in sql clause.
+		if (is_array($value)) {
+			return $this->{$boolean . 'Where'}(function($query) use ($column, $value, $operator){
+				foreach ($value as $entry) {
+					$query->orWhere($column, $operator, $entry);
+				}
+			});
 		}
 
 		// Store "where".

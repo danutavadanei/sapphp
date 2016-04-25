@@ -29,9 +29,9 @@ if (! function_exists('array_decode_guid')) {
     {
         if (!is_array($input)){
         	if (mb_strlen($input) !== strlen($input)) {
-        		if (strlen($guid = strtoupper(unpack('h*', $input)[1])) === 32) {
+        		if (strlen($guid = strtoupper(unpack('H*', $input)[1])) === 32) {
         			return $guid;
-        		} elseif (strlen($guid = strtoupper(unpack('h*', $input)[1] . ' ')) === 32) {
+        		} elseif (strlen($guid = strtoupper(unpack('H*', $input  . ' ')[1])) === 32) {
                     return $guid;
                 }
         	}

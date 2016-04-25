@@ -11,28 +11,28 @@ class FunctionModule
 
 	/**
 	 * sapnwrfc_function Handle
-	 * 
+	 *
 	 * @var sapnwrfc_functio
 	 */
 	public $fm;
 
 	/**
 	 * sapnwrfc_function Paramters
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $parameters = [];
 
 	/**
 	 * Parse function output.
-	 * 
+	 *
 	 * @var bool
 	 */
 	protected $parse;
 
 	/**
 	 * Parser Closure
-	 * 
+	 *
 	 * @var Closure
 	 */
 	protected $parser;
@@ -47,7 +47,7 @@ class FunctionModule
 	 * @return void
 	 */
 	public function __construct(sapnwrfc $handle, $name, $parse = true)
-	{	
+	{
 		$this->parse = $parse;
 		$this->fm = $handle->function_lookup(strtoupper($name));
 	}
@@ -64,14 +64,14 @@ class FunctionModule
 
 	/**
 	 * Add fm parameter.
-	 * 
-	 * @param  string $name 
+	 *
+	 * @param  string $name
 	 * @param  string $value
-	 * 
+	 *
 	 * @return $this
 	 */
 	public function param($name, $value)
-	{	
+	{
 		// Force to uppercase to prevent unwanted errors.
 		// All fms, paramaters and table names are uppercase in SAP.
 		$name = strtoupper($name);
@@ -98,9 +98,9 @@ class FunctionModule
 
 	/**
 	 * Add fm parameters.
-	 * 
+	 *
 	 * @param  array $params
-	 * 
+	 *
 	 * @return $this
 	 */
 	public function params($params)
@@ -114,7 +114,7 @@ class FunctionModule
 
 	/**
 	 * Invoke function and return result.
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function invoke()

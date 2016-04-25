@@ -9,24 +9,23 @@ use SapPhp\Functions\Table\RfcReadTable;
 
 class Connection
 {
-
 	/**
 	 * Cached Connections
-	 * 
+	 *
 	 * @var array
 	 */
 	public static $cached = [];
 
 	/**
 	 * sapnwrfc Handle
-	 * 
+	 *
 	 * @var sapnwrfc
 	 */
 	public $handle;
 
 	/**
 	 * Custom FunctionModules classes
-	 * 
+	 *
 	 * @var array
 	 */
 	private static $customFms = [
@@ -44,7 +43,7 @@ class Connection
      * @return void
      */
 	public function __construct($box, $user, $password, $client)
-	{	
+	{
 		// Get box details.
 		$box = Repository::get($box, $user, $password, $client);
 
@@ -57,10 +56,10 @@ class Connection
 
 	/**
 	 * Return a new instance of a FunctionModule
-	 * 
+	 *
 	 * @param  string   $name
 	 * @param  bool 	$parse
-	 * 
+	 *
 	 * @return FunctionModule
 	 */
 	public function fm($name, $parse = true)
@@ -82,7 +81,7 @@ class Connection
 	 * @return bool|sappnwrfc
 	 */
 	private static function cached($box, $handle = null)
-	{		
+	{
 		$hash = sha1($box['name'] . $box['user']);
 
 		if (isset(self::$cached[$hash])) {
@@ -96,16 +95,16 @@ class Connection
 
 	/**
 	 * Create a new sapnwrfc handle using provided authentification details.
-	 * 
+	 *
 	 * @param  Collection $box
-	 * 
+	 *
 	 * @return sapnwrfc
 	 */
 	public static function connect($box)
 	{
 		// Connect to SAP Box.
 		return self::cached(
-			$box,	
+			$box,
 			new sapnwrfc($box->toArray())
 		);
 	}

@@ -126,7 +126,7 @@ class FunctionModule
 			if ($this->parser instanceof Closure) {
 				return $this->parser->__invoke($result);
 			}
-			return array_decode_guid(array_trim($result));
+			return array_trim(array_decode_guid($result));
 		}
 
 		return $result;

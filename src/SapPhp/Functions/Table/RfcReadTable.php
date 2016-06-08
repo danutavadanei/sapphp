@@ -15,7 +15,7 @@ class RfcReadTable extends FunctionModule
 	 * @var array
 	 */
 	public $parameters = [
-		'DELIMITER'   => '~',
+		'DELIMITER'   => '§',
 		'QUERY_TABLE' => '',
 		'FIELDS'      => [],
 		'OPTIONS'     => [],
@@ -147,8 +147,13 @@ class RfcReadTable extends FunctionModule
 		}
 
 		// Explode raw data rows and combine with columns.
-		$table = $data->pluck('WA')->transform(function($item) use ($columns) {
-			return array_combine($columns, array_trim(explode('~', $item)));
+		$table = $data->pluck('WA')->transform(function($item) use ($columns) 
+		{
+			$values = array_trim(explode($this->parameters['DELIMITER'], $item));
+			if (count($values) != count($columns)) {
+				eval(\Psy\sh());
+			}
+			return array_combine($columns, $values);
 		});
 
 		// Apply transformations in corelation with fields type.

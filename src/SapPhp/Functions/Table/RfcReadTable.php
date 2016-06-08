@@ -161,7 +161,11 @@ class RfcReadTable extends FunctionModule
 			// Transform dates.
 			if ($field['TYPE'] === 'D') {
 				$table->transform(function ($row) use($field) {
-					$row[$field['FIELDNAME']] = Carbon::createFromFormat('Ymd', $row[$field['FIELDNAME']]);
+					if ($row[$field['FIELDNAME']] == '00000000') {
+						$row[$field['FIELDNAME']] = '0000-00-00';
+					} else {
+						$row[$field['FIELDNAME']] = Carbon::createFromFormat('Ymd', $row[$field['FIELDNAME']]);
+					}
 					return $row;
 				});
 			}

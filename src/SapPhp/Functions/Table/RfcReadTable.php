@@ -162,7 +162,7 @@ class RfcReadTable extends FunctionModule
 			if ($field['TYPE'] === 'D') {
 				$table->transform(function ($row) use($field) {
 					if ($row[$field['FIELDNAME']] == '00000000') {
-						$row[$field['FIELDNAME']] = '0000-00-00';
+						$row[$field['FIELDNAME']] = null;
 					} else {
 						$row[$field['FIELDNAME']] = Carbon::createFromFormat('Ymd', $row[$field['FIELDNAME']]);
 					}

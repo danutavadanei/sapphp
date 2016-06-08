@@ -39,14 +39,24 @@ class Connection
      * @param string $user     SAP Username
      * @param string $password SAP Password
      * @param string $client   SAP Client
+     * @param string $host     SAP host
+     * @param string $sysnr    SAP System NUmber
      *
      * @return void
      */
-	public function __construct($box, $user, $password, $client)
+	public function __construct($box, $user, $password, $client, $host = null, $sysnr = null)
 	{
 		// Get box details.
 		$box = Repository::get($box, $user, $password, $client);
 
+		if ($host !== null) {
+			$box['ashost'] = $host;
+		}
+
+		if ($sysnr !== null) {
+			$box['sysnr'] = $sysnr;
+		}
+		
 		if ($handle = self::cached($box)) {
 			$this->handle = $handle;
 		} else {

@@ -164,7 +164,11 @@ class RfcReadTable extends FunctionModule
 					if ($row[$field['FIELDNAME']] == '00000000') {
 						$row[$field['FIELDNAME']] = null;
 					} else {
-						$row[$field['FIELDNAME']] = Carbon::createFromFormat('Ymd', $row[$field['FIELDNAME']]);
+						try {
+							$row[$field['FIELDNAME']] = Carbon::createFromFormat('Ymd', $row[$field['FIELDNAME']]);
+						} catch (\InvalidArgumentException $e) {
+							// Do nothing. Invalid format.
+						}
 					}
 					return $row;
 				});

@@ -2,7 +2,7 @@
 
 namespace SapPhp;
 
-use sapnwrfc;
+use SAPNWRFC\Connection as SapConnection;
 use SapPhp\Repository;
 use SapPhp\BoxNotFoundException;
 use SapPhp\Functions\Table\RfcReadTable;
@@ -17,9 +17,9 @@ class Connection
 	public static $cached = [];
 
 	/**
-	 * sapnwrfc Handle
+	 * SapConnection Handle
 	 *
-	 * @var sapnwrfc
+	 * @var SapConnection
 	 */
 	public $handle;
 
@@ -35,32 +35,31 @@ class Connection
     /**
      * Create a new Connection instance.
      *
-     * @param string $box      SAP Box
      * @param string $user     SAP Username
-     * @param string $password SAP Password
+     * @param string $passwd   SAP passwd  
      * @param string $client   SAP Client
-     * @param string $host     SAP host
+     * @param string $host     SAP Host
      * @param string $sysnr    SAP System NUmber
+     * @param string $lang     SAP language
      *
      * @return void
      */
-	public function __construct($box, $user, $password, $client, $host = null, $sysnr = null)
+	public function __construct($user, $passwd, $client, $host, $sysnr = '00', $lang = 'EN')
 	{
-		// Get box details.
-		$box = Repository::get($box, $user, $password, $client);
+		$config = [
+		    'user' => $user,
+		    'passwd' => $passwd,
+		    'client' => $client,
+		    'ashost' => $host,
+		    'sysnr'  => $sysnr,
+		    'lang'  => $lang,
+		];
 
-		if ($host !== null) {
-			$box['ashost'] = $host;
-		}
 
-		if ($sysnr !== null) {
-			$box['sysnr'] = $sysnr;
-		}
-		
-		if ($handle = self::cached($box)) {
+		if ($handle = self::cached($config)) {
 			$this->handle = $handle;
 		} else {
-			$this->handle = self::connect($box);
+			$this->handle = self::connect($config);
 		}
 	}
 
@@ -76,23 +75,33 @@ class Connection
 	{
 		if (isset(self::$customFms[$name])) {
 			$class = self::$customFms[$name];
-			return new $class($this->handle, $parse);
+			return new $class($this, $parse);
 		}
-		return new FunctionModule($this->handle, $name, $parse);
+		return new FunctionModule($this, $name, $parse);
 	}
 
 	/**
-	 * Cache or return sapnwrfc handle
-	 *
-	 * @param  string $box    SAP Box
-	 * @param  string $user   SAP user
-	 * @param  mixed  $handle sapnwrfc handle
-	 *
-	 * @return bool|sappnwrfc
+	 * Return the SapConnection handle.
+	 * 
+	 * @return SapConnection
 	 */
-	private static function cached($box, $handle = null)
+	public function getHandle()
 	{
-		$hash = sha1($box['name'] . $box['user']);
+		return $this->handle;
+	}	
+
+	/**
+	 * Cache or return SapConnection handle
+	 *
+	 * @param  array  $config SAP Box
+	 * @param  string $user   SAP user
+	 * @param  mixed  $handle SapConnection handle
+	 *
+	 * @return bool|SapConenction
+	 */
+	private static function cached(array $config, $handle = null)
+	{
+		$hash = sha1(implode(null, $config));
 
 		if (isset(self::$cached[$hash])) {
 			return self::$cached[$hash];
@@ -104,18 +113,18 @@ class Connection
 	}
 
 	/**
-	 * Create a new sapnwrfc handle using provided authentification details.
+	 * Create a new SapConnection handle using provided authentification details.
 	 *
-	 * @param  Collection $box
+	 * @param  array $config
 	 *
-	 * @return sapnwrfc
+	 * @return SapConnection
 	 */
-	public static function connect($box)
+	public static function connect(array $config)
 	{
 		// Connect to SAP Box.
 		return self::cached(
-			$box,
-			new sapnwrfc($box->toArray())
+			$config,
+			new SapConnection($config)
 		);
 	}
 }

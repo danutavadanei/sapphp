@@ -2,9 +2,9 @@
 
 namespace SapPhp\Functions\Table;
 
-use Closure;
-use sapnwrfc;
 use Carbon\Carbon;
+use Closure;
+use SapPhp\Connection;
 use SapPhp\FunctionModule;
 
 class RfcReadTable extends FunctionModule
@@ -31,17 +31,17 @@ class RfcReadTable extends FunctionModule
 	/**
 	 * Create a new instance of RfcReadTable.
 	 *
-	 * @param sapnwrfc $handle
+	 * @param Connection $handle
 	 *
 	 * @return void
 	 */
-	public function __construct(sapnwrfc $handle)
+	public function __construct(Connection $connection)
 	{
 		$this->query = new QueryBuilder($this);
 		$this->parser = function($result) {
 			return $this->parse($result);
 		};
-		parent::__construct($handle, 'RFC_READ_TABLE');
+		parent::__construct($connection, 'RFC_READ_TABLE');
 	}
 
 	/**

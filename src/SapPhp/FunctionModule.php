@@ -3,16 +3,15 @@
 namespace SapPhp;
 
 use Closure;
-use sapnwrfc;
 use SapPhp\Exceptions\ParamNotFoundException;
 
 class FunctionModule
 {
 
 	/**
-	 * sapnwrfc_function Handle
+	 * FunctionModule Handle
 	 *
-	 * @var sapnwrfc_functio
+	 * @var FunctionModule
 	 */
 	public $fm;
 
@@ -40,16 +39,16 @@ class FunctionModule
 	/**
 	 * Create a new instance of FunctionModule.
 	 *
-	 * @param sapnwrfc $handle
+	 * @param Connection $handle
 	 *
 	 * @param string   $name
 	 *
 	 * @return void
 	 */
-	public function __construct(sapnwrfc $handle, $name, $parse = true)
+	public function __construct(Connection $connection, $name, $parse = true)
 	{
 		$this->parse = $parse;
-		$this->fm = $handle->function_lookup(strtoupper($name));
+		$this->fm = $connection->getHandle()->getFunction(strtoupper($name));
 	}
 
 	/**

@@ -16,6 +16,6 @@ class ParamNotFoundException extends Exception
 	 */
 	public function __construct($name, $f)
 	{
-		parent::__construct("$name parameter not found on the function module. FunctionModule description: " . print_r($f, true), 0);
+		parent::__construct("$name parameter not found on the function module." 0);
 	}
 }

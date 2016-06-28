@@ -104,6 +104,11 @@ class Connection
 		$hash = sha1(implode(null, $config));
 
 		if (isset(self::$cached[$hash])) {
+			try {
+				self::$cached[$hash]->ping();
+			} catch (\SAPNWRFC\Exception $e) {
+				return false;
+			}
 			return self::$cached[$hash];
 		} elseif ($handle !== null) {
 			return self::$cached[$hash] = $handle;

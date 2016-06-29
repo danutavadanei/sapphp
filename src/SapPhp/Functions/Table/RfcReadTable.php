@@ -15,7 +15,7 @@ class RfcReadTable extends FunctionModule
 	 * @var array
 	 */
 	public $parameters = [
-		'DELIMITER'   => '§',
+		'DELIMITER'   => "\x08",
 		'QUERY_TABLE' => '',
 		'FIELDS'      => [],
 		'OPTIONS'     => [],

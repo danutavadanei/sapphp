@@ -10,7 +10,7 @@
     "license": "MIT",
     "require": {
         "php": ">=5.5.9",
-       	"ext-sapnwrfc": "*",
+       	"ext-sapnwrfc": "*"
     },
     "autoload": {
         "files": [
